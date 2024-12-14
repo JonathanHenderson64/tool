@@ -32,12 +32,17 @@ func (r *StreamSet[UniqueIndex, Index, V]) Push(hash UniqueIndex, height Index, 
 	}
 	r.heightMapArr.Push(height, hash)
 
-	if r.heightQueue.Count() < r.reserveCount {
-		return false
-	}
+	for r.heightQueue.Count() > r.reserveCount {
+		delHeight, ok := r.heightQueue.PopDataFromHead()
+		if !ok {
+			return false
+		}
 
-	if delHeight, ok := r.heightQueue.PopDataFromHead(); ok {
-		delHashes, _ := r.heightMapArr.Get(delHeight)
+		delHashes, exist := r.heightMapArr.Get(delHeight)
+		if !exist {
+			return false
+		}
+
 		for _, delHash := range delHashes {
 			delete(r.hashSet, delHash)
 		}
