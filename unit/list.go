@@ -1,18 +1,18 @@
 package unit
 
-type ListNode[T comparable] struct {
-	data T
-	prev *ListNode[T]
-	next *ListNode[T]
-}
+type (
+	ListNode[T comparable] struct {
+		data T
+		prev *ListNode[T]
+		next *ListNode[T]
+	}
 
-func (r *ListNode[T]) Val() T { return r.data }
-
-type List[T comparable] struct {
-	count int
-	head  *ListNode[T]
-	tail  *ListNode[T]
-}
+	List[T comparable] struct {
+		count int
+		head  *ListNode[T]
+		tail  *ListNode[T]
+	}
+)
 
 func NewList[T comparable]() *List[T] {
 	return &List[T]{}
@@ -61,13 +61,13 @@ func (r *List[T]) PopNodeFromTail() (val *ListNode[T], ok bool) {
 
 func (r *List[T]) PopDataFromHead() (val T, ok bool) {
 	if node, exist := r.PopNodeFromHead(); exist {
-		return node.Val(), exist
+		return node.data, exist
 	}
 	return
 }
 func (r *List[T]) PopDataFromTail() (val T, ok bool) {
 	if node, exist := r.PopNodeFromTail(); exist {
-		return node.Val(), exist
+		return node.data, exist
 	}
 	return
 }
@@ -220,9 +220,8 @@ func (r *List[T]) pushList(o *List[T]) {
 	}
 	r.tail = o.tail
 	r.count += o.Count()
-
-	//o=&List[T]{}
 }
+
 func (r *List[T]) PushListFromTail(o *List[T]) *List[T] {
 	if o == nil {
 		return r
