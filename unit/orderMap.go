@@ -3,7 +3,7 @@ package unit
 type orderMapNode[K comparable, V any] struct {
 	key   K
 	value V
-	index *ListNode[*orderMapNode[K, V]]
+	this  *ListNode[*orderMapNode[K, V]]
 }
 
 type OrderMap[K comparable, V any] struct {
@@ -25,13 +25,13 @@ func (r *OrderMap[K, V]) Put(k K, v V) {
 		key:   k,
 		value: v,
 	}
-	node.index = r.l.PushDataFromTail(node)
+	node.this = r.l.PushDataFromTail(node)
 	r.m[k] = node
 }
 
 func (r *OrderMap[K, V]) Del(key K) {
 	if entry, ok := r.m[key]; ok {
-		r.l.del(entry.index)
+		r.l.Del(entry.this)
 		delete(r.m, key)
 	}
 }

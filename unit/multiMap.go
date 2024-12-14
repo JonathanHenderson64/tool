@@ -8,7 +8,7 @@ func NewMultiMap[K1, K2 comparable, V any]() *MultiMap[K1, K2, V] {
 	return &MultiMap[K1, K2, V]{m: make(map[K1]map[K2]V)}
 }
 
-func (r *MultiMap[K1, K2, V]) Push(k1 K1, k2 K2, v V) {
+func (r *MultiMap[K1, K2, V]) Set(k1 K1, k2 K2, v V) {
 	if m, ok := r.m[k1]; ok {
 		m[k2] = v
 		r.m[k1] = m

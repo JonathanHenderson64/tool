@@ -36,6 +36,10 @@ func (r *List[T]) del(node *ListNode[T]) {
 	r.count--
 }
 
+func (r *List[T]) Del(node *ListNode[T]) {
+	r.del(node)
+}
+
 func (r *List[T]) pop(fromHead bool) (val *ListNode[T], ok bool) {
 	if 0 == r.count {
 		return
@@ -219,7 +223,7 @@ func (r *List[T]) pushList(o *List[T]) {
 
 	//o=&List[T]{}
 }
-func (r *List[T]) PushList(o *List[T]) *List[T] {
+func (r *List[T]) PushListFromTail(o *List[T]) *List[T] {
 	if o == nil {
 		return r
 	}
@@ -227,7 +231,7 @@ func (r *List[T]) PushList(o *List[T]) *List[T] {
 	r.pushList(o)
 	return r
 }
-func (r *List[T]) AddList(o *List[T]) *List[T] {
+func (r *List[T]) PushListFromHead(o *List[T]) *List[T] {
 	if o == nil {
 		return r
 	}

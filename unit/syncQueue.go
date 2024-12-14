@@ -89,9 +89,9 @@ func (r *SyncQueue[T]) insertMore(l *List[T], priority bool) {
 
 	if r.running {
 		if priority {
-			r.queue = r.queue.AddList(l)
+			r.queue = r.queue.PushListFromHead(l)
 		} else {
-			r.queue = r.queue.PushList(l)
+			r.queue = r.queue.PushListFromTail(l)
 		}
 		r.empty.Broadcast()
 	}
